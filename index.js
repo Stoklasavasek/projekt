@@ -1,76 +1,63 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const app = express()
-const fs = require('fs')
+const express = require('express');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const app = express();
+const PORT = 3000;
 
-app.use(express.static('public'))
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public')); // pro statické soubory (CSS, JS)
+app.set('view engine', 'ejs'); // nastavení EJS jako šablonovacího nástroje
 
-app.set('view engine', 'ejs')
+app.listen(PORT, () => {
+console.log(`Server běží na portu ${PORT}`);
+});
 
-/* Routa na domovskou stránku http://localhost:3000/ */
-app.get('/', function (req, res) {
-  // console.log(req)
-  res.render('index')
-})
 
-/* Routa na stránku http://localhost:3000/about */
-app.get('/about', function (req, res) {
-    res.render('about')
-})
+/* Routa pro zobrazení úvodní stránky */ 
+app.get('/', (req, res) => {
+    // Zde, na úvodní stránce, budeme zobrazovat formulář pro vyplnění ankety
+    res.render('index', { title: 'Webová anketa' }); // index.ejs je soubor šablony
+});
 
-/* Routa na stránku http://localhost:3000/about */
-app.post('/submit', (req, res) => {
-    let newMessage = {
-      author: req.body.author,
-      message: req.body.message,
+
+/* Routa pro zpracování dat z formuláře */
+app.post("/submit", (req, res) => {
+    // Zde budeme ukládat data z formuláře do souboru responses.json
+    const newResponse = {
+      id: Date.now(), // Jednoduchý způsob, jak generovat unikátní ID
       timestamp: new Date().toISOString(),
-      ip: req.ip.split(':').pop()
-    }
-    fs.readFile('data.json', (err, data) => {
+      answers: req.body, // Předpokládáme, že všechny odpovědi jsou ve formátu, který chceme uložit
+    };
+  
+    // Čtení stávajících dat z souboru
+    fs.readFile("responses.json", (err, data) => {
       if (err) throw err;
-      if (data) {
-        let messages = JSON.parse(data);
-        messages.push(newMessage);
-        fs.writeFile('data.json', JSON.stringify(messages), function (err) {
-          if (err) throw err;
-          res.send("Díky za informace, jsou uloženy")
-        }); 
-      }
-    })
-})
-
-/* Routa na stránku http://localhost:3000/messages/json */
-app.get('/messages/json', (req, res) => {
-  fs.readFile('data.json', (err, data) => {
-    if (err) throw err;
-    if (data) {
-      let messages = JSON.parse(data);
-      // res.render('messages', { messages: messages })
-      res.json(messages);
-    }
-  })  
-})
-
-app.get('/messages', (req, res) => {
-  let autor = req.query.autor;
-  let datum = req.query.datum;
-  fs.readFile('data.json', (err, data) => {
-    if (err) throw err;
-    if (data) {
-      let messages = JSON.parse(data);
-      if (autor) {
-        messages = messages.filter(message => message.author.includes(autor));
-      }
-      if (datum) {
-        messages = messages.filter(message => {
-          const messageDate = new Date(message.timestamp).toISOString().split('T')[0];
-          return messageDate === datum;
+      let json = JSON.parse(data);
+      json.push(newResponse);
+  
+      // Zápis aktualizovaných dat zpět do souboru
+      fs.writeFile("responses.json", JSON.stringify(json, null, 2), (err) => {
+        if (err) throw err;
+        console.log("Data byla úspěšně uložena.");
+        res.redirect("/results"); // Přesměrování na stránku s výsledky
       });
-}
-      res.render('messages', { zpravy: messages, autor: 'Marek Lučný' })
-    }
-  })  
-})
+    });
+  });
 
-app.listen(3000)
+/* Routa pro zobrazení výsledků ankety */
+app.get('/results', (req, res) => {
+    // Read the responses.json file
+    fs.readFile("responses.json", (err, data) => {
+      if (err) throw err;
+      let json = JSON.parse(data);
+  
+      // Pass the parsed JSON object to the results.ejs template
+      res.render('results', { responses: json, title: 'Výsledky ankety' });
+    });
+  });
+
+
+
+
+
+

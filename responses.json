@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1712082357738,
+    "timestamp": "2024-04-02T18:25:57.738Z",
+    "answers": {
+      "hours": "-0.3",
+      "sport": "atletika",
+      "importance": "3",
+      "roleModel": "mine"
+    }
+  },
+  {
+    "id": 1712082511029,
+    "timestamp": "2024-04-02T18:28:31.029Z",
+    "answers": {
+      "hours": "-0.1",
+      "sport": "atletika",
+      "importance": "3",
+      "roleModel": "wdwdw"
+    }
+  }
+]
