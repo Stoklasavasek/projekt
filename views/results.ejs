@@ -9,32 +9,35 @@
 <body>
     <h1>Výsledky ankety</h1>
     <div class="container">
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Datum</th>
-            <th>Čas</th>
-            <th>Hodiny týdně</th>
-            <th>Zaměření TV</th>
-            <th>Význam sportu</th>
-            <th>Sportovní vzor</th>
-        </tr>
-        <% responses.forEach(function(response) { 
-            const date = new Date(response.timestamp);
-            const dateString = `${('0' + date.getDate()).slice(-2)}.${('0' + (date.getMonth() + 1)).slice(-2)}.${date.getFullYear()}`;
-            const timeString = `${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}:${('0' + date.getSeconds()).slice(-2)}`;
-        %>
+        <table border="1">
             <tr>
-                <td><%= response.id %></td>
-                <td><%= dateString %></td>
-                <td><%= timeString %></td>
-                <td><%= response.answers.hours %></td>
-                <td><%= response.answers.sport %></td>
-                <td><%= response.answers.importance %></td>
-                <td><%= response.answers.roleModel %></td>
+                <th>ID</th>
+                <th>Datum</th>
+                <th>Čas</th>
+                <th>Oblíbené jídlo</th>
+                <th>Oblíbený nápoj</th>
+                <th>Preference slaného nebo sladkého jídla</th>
+                <th>Frekvence jídla venku</th>
+                <th>Průměrná denní výše výdajů za jídlo</th>
+                <th>Kolik sníš párků?</th>
+                <!-- Přidej další sloupce, pokud je to potřeba -->
             </tr>
-        <% }); %>
-    </table>
-</div>
-</body>
-</html>
+            <% responses.forEach(function(response) { 
+                const date = new Date(response.timestamp);
+                const dateString = `${('0' + date.getDate()).slice(-2)}.${('0' + (date.getMonth() + 1)).slice(-2)}.${date.getFullYear()}`;
+                const timeString = `${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}:${('0' + date.getSeconds()).slice(-2)}`;
+            %>
+                <tr>
+                    <td><%= response.id %></td>
+                    <td><%= dateString %></td>
+                    <td><%= timeString %></td>
+                    <td><%= response.answers.favoriteFood %></td>
+                    <td><%= response.answers.favoriteDrink %></td>
+                    <td><%= response.answers.foodPreference %></td>
+                    <td><%= response.answers.eatingOut %></td>
+                    <td><%= response.answers.foodBudget %></td>
+                    <td><%= response.answers.parky %></td>
+                    <!-- Přidej další buňky, pokud je to potřeba -->
+                </tr>
+            <% }); %>
+   

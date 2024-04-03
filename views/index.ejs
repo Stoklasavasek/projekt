@@ -4,52 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Webová anketa</title>
+    <title>Anketa o stravování</title>
 </head>
 <body>
-    <h1>Anketa o sportu a pohybu</h1>
-<form action="/submit" method="post" class="form-container">
-    <div>
-        <label for="hours">Průměrný počet hodin, které týdně věnujete sportu nebo jiné pohybové aktivitě:</label>
-        <input type="number" step="0.1" id="hours" name="hours" required>
-    </div>
-    
-    <div>
-        <label>Vyberte si sport pro hodinu tělocviku:</label>
-        <select id="sport" name="sport">
-            <option value="atletika">Atletika</option>
-            <option value="gymnastika">Gymnastika</option>
-            <option value="plavání">Plavání</option>
-            <option value="cyklistika">Cyklistika</option>
-            <option value="bruslení">Bruslení</option>
-            <option value="lyžování">Lyžování</option>
-            <option value="volejbal">Volejbal</option>
-            <option value="florbal">Florbal</option>
-            <option value="golf">Golf</option>
-        </select>
-    </div>
-    
-    <div>
-        <label for="importance">Jakou roli hraje sport ve vašem životě? (0 = žádnou, 5 = mimořádnou)</label>
-        <input type="range" id="importance" name="importance" min="0" max="5" step="1">
-        <span id="importanceValue"></span>
-    </div>
-    
-    <div>
-        <label for="roleModel">Napište jméno svého sportovního vzoru:</label>
-        <input type="text" id="roleModel" name="roleModel">
-    </div>
-    
-    <button type="submit">Odeslat odpovědi</button>
-</form>
-<script>
-    const slider = document.getElementById('importance');
-    const output = document.getElementById('importanceValue');
-    output.innerHTML = slider.value; // Zobrazit výchozí hodnotu
-    
-    slider.oninput = function() {
-        output.innerHTML = this.value;
-    }
+    <h1>Anketa o stravování</h1>
+    <form action="/submit" method="post" class="form-container">
+        <div>
+            <label for="favoriteFood">Jaké je vaše oblíbené jídlo?</label>
+            <input type="text" id="favoriteFood" name="favoriteFood" required>
+        </div>
+
+        <div>
+            <label for="favoriteDrink">Jaký je váš oblíbený nápoj?</label>
+            <input type="text" id="favoriteDrink" name="favoriteDrink" required>
+        </div>
+        
+        <div>
+            <label for="foodPreference">Preferujete spíše sladké nebo slané jídlo?</label>
+            <select id="foodPreference" name="foodPreference" required>
+                <option value="sladké">Sladké</option>
+                <option value="slané">Slané</option>
+            </select>
+        </div>
+        
+        <div>
+            <label for="eatingOut">Jak často chodíte jíst ven?</label>
+            <select id="eatingOut" name="eatingOut" required>
+                <option value="méně než jednou týdně">Méně než jednou týdně</option>
+                <option value="1-3x týdně">1-3x týdně</option>
+                <option value="4-6x týdně">4-6x týdně</option>
+                <option value="každý den">Každý den</option>
+                <option value="méně než jednou měsíčně">Méně než jednou měsíčně</option>
+            </select>
+        </div>
+        
+        <div>
+            <label for="foodBudget">Kolik průměrně utratíte za jídlo denně?</label>
+            <input type="number" id="foodBudget" name="foodBudget" required>
+        </div>
+
+        <div>
+            <label for="parkVisit">Kolik sníš párků</label>
+            <input type="range" id="parky" name="parky" min="1" max="69" required>
+            <output for="parky" id="parkyhodnota">5</output>
+        </div>
+        
+        <button type="submit">Odeslat odpovědi</button>
+    </form>
+    <script>
+        const slider = document.getElementById('parky');
+        const output = document.getElementById('parkyhodnota');
+        output.innerHTML = slider.value; // Zobrazit výchozí hodnotu
+        
+        slider.oninput = function() {
+            output.innerHTML = this.value;
+        }
     </script>
 </body>
 </html>
