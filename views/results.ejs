@@ -20,7 +20,6 @@
                 <th>Frekvence jídla venku</th>
                 <th>Průměrná denní výše výdajů za jídlo</th>
                 <th>Kolik sníš párků?</th>
-                <!-- Přidej další sloupce, pokud je to potřeba -->
             </tr>
             <% responses.forEach(function(response) { 
                 const date = new Date(response.timestamp);
@@ -37,7 +36,12 @@
                     <td><%= response.answers.eatingOut %></td>
                     <td><%= response.answers.foodBudget %></td>
                     <td><%= response.answers.parky %></td>
-                    <!-- Přidej další buňky, pokud je to potřeba -->
                 </tr>
             <% }); %>
-   
+        </table>
+    </div>
+    <footer class="footer">
+        <p>Stoklasa Václav - 2024 &copy</p>
+      </footer>
+</body>
+</html>

@@ -234,3 +234,10 @@ select {
     color: #fff;
     border: none;
 }
+.footer {
+    color: #000000;
+    text-align: center;
+    position: fixed; /* udrží footer na dolní části stránky */
+    bottom: 0; /* zarovná footer dolů */
+    width: 100%; /* zajistí, aby footer zabíral celou šířku stránky */
+}
